@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乐鱼体育 · 从一场赛事开始</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f9fafc;
+            color: #1e293b;
+            line-height: 1.7;
+        }
+
+        /* 深色头图 */
+        .hero {
+            background: linear-gradient(145deg, #0b1424 0%, #1a2639 100%);
+            color: #e2e8f0;
+            padding: 4rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: #f9fafc;
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+            transform: scaleX(1.5);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero .sub {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 540px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .hero .sub a {
+            color: #facc15;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color .2s;
+        }
+
+        .hero .sub a:hover {
+            border-bottom-color: #facc15;
+        }
+
+        /* 浅色正文区 */
+        .content {
+            max-width: 840px;
+            margin: -2rem auto 0;
+            padding: 2.5rem 2rem 4rem;
+            position: relative;
+            z-index: 2;
+            background: #ffffff;
+            border-radius: 28px 28px 0 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.02);
+        }
+
+        .intro p {
+            font-size: 1.05rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .intro p:first-of-type {
+            font-size: 1.2rem;
+            font-weight: 350;
+            color: #0f172a;
+            border-left: 4px solid #facc15;
+            padding-left: 1.2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0 2rem;
+        }
+
+        .feature-item {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 1.5rem 1.2rem;
+            border: 1px solid #e9edf2;
+            transition: box-shadow .2s;
+        }
+
+        .feature-item:hover {
+            box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+        }
+
+        .feature-item h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item h3::before {
+            content: '▸ ';
+            color: #facc15;
+            font-weight: 600;
+        }
+
+        .feature-item p {
+            font-size: 0.95rem;
+            color: #475569;
+        }
+
+        .scene-note {
+            background: #f1f5f9;
+            padding: 1.8rem 2rem;
+            border-radius: 20px;
+            margin: 2rem 0 1.8rem;
+            border-left: 5px solid #0f172a;
+        }
+
+        .scene-note p {
+            font-size: 1rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .scene-note p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-mini {
+            margin-top: 2.2rem;
+        }
+
+        .faq-mini details {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 0;
+        }
+
+        .faq-mini details:first-of-type {
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .faq-mini summary {
+            font-weight: 500;
+            cursor: pointer;
+            color: #1e293b;
+            padding: 0.3rem 0;
+            font-size: 1rem;
+        }
+
+        .faq-mini summary::marker {
+            color: #facc15;
+        }
+
+        .faq-mini details p {
+            margin-top: 0.7rem;
+            color: #475569;
+            padding-left: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .gentle-end {
+            margin-top: 2.8rem;
+            padding-top: 1.8rem;
+            border-top: 1px solid #e9edf2;
+            font-style: normal;
+            color: #334155;
+        }
+
+        .gentle-end p {
+            font-size: 1rem;
+        }
+
+        .gentle-end a {
+            color: #0f172a;
+            text-decoration: none;
+            border-bottom: 1px solid #facc15;
+            padding-bottom: 2px;
+            transition: border-color .2s;
+        }
+
+        .gentle-end a:hover {
+            border-bottom-color: #1e293b;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero .sub {
+                font-size: 1rem;
+            }
+            .content {
+                padding: 1.8rem 1.2rem 3rem;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <h1>乐鱼体育</h1>
+    <div class="sub">
+        想快速了解一个体育平台能做什么？<br>
+        这里没有花哨的包装，只有<span style="color:#facc15;">清晰的方向</span>。
+    </div>
+</section>
+
+<main class="content">
+    <div class="intro">
+        <p>当你打开一个体育相关的网站，最关心的往往是——它提供什么？我能不能快速找到需要的赛况或内容？</p>
+        <p><a href="https://zh-mobile-leyu.com.cn" style="color:#0f172a; border-bottom:2px solid #facc15; text-decoration:none; font-weight:500;">乐鱼体育</a> 从用户视角出发，将体育信息与赛事动态整合在一起。无论你习惯在手机上浏览，还是更常用电脑，它都保持一致的简洁体验，让你少花时间在导航上，多留时间给真正的体育内容。</p>
+        <p>平台围绕“快速识别”这一核心思路，把常见功能与热门比赛放在显眼位置。你不需要反复查找，进入之后基本能一眼看到自己关心的部分。</p>
+    </div>
+
+    <div class="feature-grid">
+        <div class="feature-item">
+            <h3>内容结构清晰</h3>
+            <p>赛程、比分、资讯分区明确，减少无效点击，信息获取更直接。</p>
+        </div>
+        <div class="feature-item">
+            <h3>多端体验一致</h3>
+            <p>移动端与桌面端布局协调，页面元素自适应，阅读感受流畅。</p>
+        </div>
+        <div class="feature-item">
+            <h3>聚焦体育本身</h3>
+            <p>没有过度繁杂的弹窗或推荐，把注意力还给赛事与数据。</p>
+        </div>
+        <div class="feature-item">
+            <h3>更新节奏稳定</h3>
+            <p>内容保持日常更新，用户不必担心信息滞后或断层。</p>
+        </div>
+    </div>
+
+    <div class="scene-note">
+        <p><strong>一个常见的场景：</strong>周末晚上，你打开手机想看一眼某场足球赛的实时比分，或者翻一翻近两天的赛事回顾。</p>
+        <p>这时候，一个加载快、导航清爽、内容直接呈现在首页的平台，会省去很多不必要的操作。<a href="https://zh-mobile-leyu.com.cn" style="color:#0f172a; border-bottom:1px solid #facc15; text-decoration:none;">乐鱼体育</a> 的设计思路正是如此：让用户用最少的步骤找到体育信息，而不是被其他信息分散注意力。</p>
+    </div>
+
+    <div class="faq-mini">
+        <details>
+            <summary>这个网站主要面向哪些用户？</summary>
+            <p>面向所有对体育赛事感兴趣的普通观众和爱好者，不区分专业程度，界面用语尽量通俗。</p>
+        </details>
+        <details>
+            <summary>内容更新频率怎么样？</summary>
+            <p>日常赛事信息保持同步更新，重要比赛前后会集中整合相关内容，方便用户回顾。</p>
+        </details>
+        <details>
+            <summary>移动端体验是否有缩水？</summary>
+            <p>移动端与桌面端内容一致，排版自适应，按钮和链接尺寸适合手指操作，没有功能删减。</p>
+        </details>
+    </div>
+
+    <div class="gentle-end">
+        <p>如果你正在找一个能快速进入状态的体育信息页面，不妨花一分钟浏览 <a href="https://zh-mobile-leyu.com.cn">乐鱼体育</a>，看看它的布局和节奏是否合你心意。</p>
+        <p style="margin-top:0.8rem; color:#64748b;">—— 简单，有时就是最好的引导。</p>
+    </div>
+</main>
+
+</body>
+</html>
