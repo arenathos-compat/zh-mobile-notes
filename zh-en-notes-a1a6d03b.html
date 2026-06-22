@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>pg模拟器 · 信息整理 · 索引专题</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f1f8fb;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.7;
+      color: #1a2f3c;
+      padding: 20px 16px 40px;
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /* 首页横幅 — 网格杂志氛围 */
+    .hero {
+      background: linear-gradient(135deg, #d7ecec 0%, #b8d9da 100%);
+      border-radius: 28px;
+      padding: 48px 32px 40px;
+      margin-bottom: 36px;
+      box-shadow: 0 8px 20px rgba(40, 100, 110, 0.08);
+      border: 1px solid rgba(120, 180, 180, 0.3);
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 6vw, 3.2rem);
+      font-weight: 580;
+      letter-spacing: -0.015em;
+      color: #0f3a47;
+      line-height: 1.2;
+      max-width: 70%;
+    }
+
+    .hero .badge {
+      background: #e2f0ee;
+      padding: 8px 18px;
+      border-radius: 60px;
+      font-size: 0.82rem;
+      font-weight: 480;
+      color: #20616e;
+      border: 1px solid #9ac5c7;
+      backdrop-filter: blur(2px);
+      margin-top: 14px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .hero aside {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(4px);
+      padding: 10px 18px 10px 22px;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      color: #19545e;
+      border: 1px solid rgba(90, 160, 160, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero aside span {
+      background: #1d6b79;
+      color: white;
+      font-weight: 500;
+      padding: 0 10px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      line-height: 1.8;
+    }
+
+    /* 背景说明卡片 — 索引式 */
+    .bg-note {
+      background: white;
+      border-radius: 24px;
+      padding: 32px 28px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      border-left: 6px solid #5da6a8;
+      border-right: 1px solid #d9e6e6;
+    }
+
+    .bg-note h2 {
+      font-size: 1.6rem;
+      font-weight: 450;
+      color: #113944;
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bg-note h2::before {
+      content: "⟡";
+      color: #3f8a8d;
+      font-size: 1.8rem;
+    }
+
+    .bg-note p {
+      margin-bottom: 14px;
+      color: #284b56;
+    }
+
+    .bg-note .ref-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .ref-grid .tag {
+      background: #ecf5f4;
+      padding: 6px 12px;
+      border-radius: 40px;
+      color: #10616d;
+      border: 1px solid #bcd4d4;
+    }
+
+    /* 三段自然介绍 — 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+      margin: 40px 0 32px;
+    }
+
+    .card-item {
+      background: white;
+      border-radius: 24px;
+      padding: 28px 22px;
+      transition: all 0.15s ease;
+      border: 1px solid #daeaec;
+      box-shadow: 0 2px 10px rgba(30, 80, 85, 0.04);
+    }
+
+    .card-item:hover {
+      border-color: #7bbfc2;
+      box-shadow: 0 8px 18px rgba(60, 135, 140, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .card-item .icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 10px;
+      color: #3d828a;
+    }
+
+    .card-item h3 {
+      font-weight: 490;
+      font-size: 1.25rem;
+      color: #12434f;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #c4dfe0;
+      padding-bottom: 8px;
+      display: inline-block;
+    }
+
+    .card-item p {
+      font-size: 0.95rem;
+      color: #2c535e;
+    }
+
+    .card-item .note {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      background: #f0faf9;
+      padding: 8px 12px;
+      border-radius: 50px;
+      color: #196b77;
+    }
+
+    /* 句子里嵌入链接 */
+    .inline-link-area {
+      background: #e3f1f1;
+      padding: 20px 28px;
+      border-radius: 40px;
+      margin: 18px 0 30px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 10px;
+      border: 1px solid #b6d5d5;
+    }
+
+    .inline-link-area p {
+      font-size: 1rem;
+      color: #143d46;
+    }
+
+    .inline-link-area a {
+      color: #066273;
+      font-weight: 520;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-color: #6daeb1;
+      transition: 0.1s;
+    }
+
+    .inline-link-area a:hover {
+      color: #01303b;
+      text-decoration-color: #01303b;
+    }
+
+    /* FAQ 摘要 — 紧凑 */
+    .faq-digest {
+      background: white;
+      border-radius: 28px;
+      padding: 28px 24px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+      margin: 26px 0 36px;
+      border: 1px solid #dae6e5;
+    }
+
+    .faq-digest h2 {
+      font-weight: 450;
+      font-size: 1.3rem;
+      color: #0a3b45;
+      margin-bottom: 20px;
+      letter-spacing: 0.01em;
+    }
+
+    .faq-item {
+      display: flex;
+      gap: 10px 18px;
+      flex-wrap: wrap;
+      border-bottom: 1px dashed #c6dbda;
+      padding: 12px 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      font-weight: 500;
+      min-width: 70px;
+      color: #1a6875;
+    }
+
+    .faq-a {
+      color: #2a515b;
+      flex: 1;
+    }
+
+    .faq-a a {
+      color: #0d5e6b;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    /* 页尾访问提示 */
+    .footer-note {
+      margin-top: 40px;
+      padding: 24px 16px;
+      border-top: 2px solid #c5dddd;
+      text-align: center;
+      color: #266974;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-note .action {
+      background: #ccdfde;
+      padding: 10px 20px;
+      border-radius: 80px;
+      display: inline-block;
+      backdrop-filter: blur(2px);
+      border: 1px solid #97c2c2;
+    }
+
+    .footer-note .action a {
+      color: #022d36;
+      font-weight: 470;
+      text-decoration: none;
+    }
+
+    .footer-note .action a:hover {
+      text-decoration: underline;
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+      .hero {
+        padding: 32px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero h1 {
+        max-width: 100%;
+      }
+      .hero aside {
+        margin-top: 16px;
+        align-self: flex-start;
+      }
+      .bg-note .ref-grid {
+        grid-template-columns: 1fr;
+      }
+      .inline-link-area {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .faq-item {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+
+    @media (max-width: 440px) {
+      body {
+        padding: 12px 8px 30px;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <!-- hero 首页横幅 -->
+  <div class="hero">
+    <div>
+      <h1>pg模拟器 · 信息索引</h1>
+      <div class="badge">资料整理 · 实用速查</div>
+    </div>
+    <aside>
+      <span>📋</span> 整理版次 2412
+    </aside>
+  </div>
+
+  <!-- 背景说明：为什么整理 -->
+  <div class="bg-note">
+    <h2>从资料整理到索引</h2>
+    <p>
+      模拟器领域的信息分散且更新频繁，一份经过筛选、归类的索引页面能减少重复查询的时间。针对 <strong>pg模拟器</strong> 这一方向，我们从应用背景、配置参考、常见场景三个角度做了基础梳理，方便需要快速建立认知的使用者。
+    </p>
+    <p>
+      以下内容来自公开资料与社区讨论的整合，侧重稳定性和实用细节，不包含未经验证的推荐。
+    </p>
+    <div class="ref-grid">
+      <span class="tag">⚙️ 运行环境说明</span>
+      <span class="tag">📁 资源索引结构</span>
+      <span class="tag">🔍 常见问题摘要</span>
+      <span class="tag">🧩 社区参考版本</span>
+    </div>
+  </div>
+
+  <!-- 三段自然介绍（卡片） -->
+  <div class="card-grid">
+    <div class="card-item">
+      <span class="icon">📌</span>
+      <h3>背景与定位</h3>
+      <p>
+        模拟工具往往承担着兼容与测试的角色。pg模拟器 在特定需求下提供了一套相对完整的操作环境，让使用者可以更专注于功能验证与流程调试，而不必受限于物理设备的约束。
+      </p>
+      <div class="note">基于通用架构整理</div>
+    </div>
+    <div class="card-item">
+      <span class="icon">📂</span>
+      <h3>资料索引特点</h3>
+      <p>
+        页面聚焦于结构化的索引方式：包括环境参数、常用配置段、以及社区中反复出现的调校建议。每一条都标记了来源范围，方便回溯原始讨论。
+      </p>
+      <div class="note">归类清晰 · 可追溯</div>
+    </div>
+    <div class="card-item">
+      <span class="icon">🧭</span>
+      <h3>适用场景</h3>
+      <p>
+        本地快速搭建、兼容性预检、参数对照、以及需要反复切换配置的测试流程。索引的目标是减少碎片信息的干扰，保持主线清晰。
+      </p>
+      <div class="note">面向日常与测试</div>
+    </div>
+  </div>
+
+  <!-- 链接自然嵌入句子 -->
+  <div class="inline-link-area">
+    <p>
+      若需要查阅更完整的配置说明与更新记录，可直接访问
+      <a href="https://zh-en-pgemulator.com">pg模拟器</a>
+      的主站索引，其中也包含了社区维护的补充文档。
+    </p>
+    <p style="font-size:0.85rem; color:#1f5e69;">📎 该站点为综合信息页，建议配合本文档对照阅读。</p>
+  </div>
+
+  <!-- FAQ 摘要 -->
+  <div class="faq-digest">
+    <h2>📖 常见索引摘要</h2>
+    <div class="faq-item">
+      <span class="faq-q">环境要求？</span>
+      <span class="faq-a">主流操作系统均支持详细配置表，参见 <a href="https://zh-en-pgemulator.com">pg模拟器</a> 的环境说明部分。</span>
+    </div>
+    <div class="faq-item">
+      <span class="faq-q">配置文件位置</span>
+      <span class="faq-a">默认路径及自定义变量在索引页有表格汇总，建议先备份默认配置。</span>
+    </div>
+    <div class="faq-item">
+      <span class="faq-q">社区常用调整</span>
+      <span class="faq-a">包括线程分配、内存限制与渲染后端切换，索引页列出三种常见预设。</span>
+    </div>
+  </div>
+
+  <!-- 页尾访问提示 -->
+  <div class="footer-note">
+    <div class="action">
+      <a href="https://zh-en-pgemulator.com">pg模拟器</a> · 资料索引页
+    </div>
+    <p style="opacity:0.7;">本页面为专题整理，内容会按周期修订 · 最后更新 2025</p>
+  </div>
+</div>
+</body>
+</html>
