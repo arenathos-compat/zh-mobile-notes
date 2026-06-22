@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pg模拟器 · 知识库与对照查询入口</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f6f9fc;
+            color: #1b2a3b;
+            line-height: 1.7;
+        }
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.8rem;
+        }
+        /* 深色头图 */
+        .hero {
+            background: linear-gradient(145deg, #0d1a2c 0%, #1b2e44 100%);
+            color: #e3edf5;
+            padding: 4rem 1.8rem 3.5rem;
+            margin: 2rem 0 3rem;
+            border-radius: 2.2rem;
+            box-shadow: 0 12px 28px rgba(0,15,30,0.2);
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.8rem;
+            color: #f0f8ff;
+        }
+        .hero .subtle {
+            font-size: 1.15rem;
+            opacity: 0.8;
+            max-width: 680px;
+            margin: 0.2rem auto 0.6rem;
+        }
+        .hero .tagline {
+            display: inline-block;
+            margin-top: 1.2rem;
+            padding: 0.5rem 2rem;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 40px;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            color: #cbddee;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* 目录感布局：卡片网格 */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2.8rem 0 2rem;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1.6rem;
+            padding: 1.8rem 2rem 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.03);
+            transition: box-shadow 0.15s ease;
+        }
+        .card:hover {
+            box-shadow: 0 10px 22px rgba(0, 40, 70, 0.08);
+        }
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            border-left: 4px solid #1b6f8f;
+            padding-left: 1rem;
+            margin-bottom: 1.2rem;
+            color: #0b293b;
+        }
+        .card ul, .card p {
+            margin-bottom: 1rem;
+        }
+        .card ul {
+            list-style: none;
+            padding-left: 0.2rem;
+        }
+        .card li {
+            padding: 0.3rem 0 0.3rem 1.5rem;
+            position: relative;
+        }
+        .card li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #2b7f9f;
+        }
+
+        /* 提示区 – 更醒目的背景 */
+        .tip-area {
+            background: #eaf2f9;
+            border-left: 6px solid #2b7f9f;
+            padding: 1.8rem 2.2rem;
+            border-radius: 1.2rem;
+            margin: 2rem 0 2.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.4rem 1rem;
+        }
+        .tip-area .tip-label {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #124a60;
+            letter-spacing: 0.3px;
+        }
+        .tip-area .tip-content {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* 相关信息区（FAQ 摘要） */
+        .faq-summary {
+            margin: 2.8rem 0 3.2rem;
+        }
+        .faq-summary h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: #0b293b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .faq-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #dbe4ed;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-q {
+            font-weight: 550;
+            color: #12425a;
+            margin-bottom: 0.3rem;
+        }
+        .faq-a {
+            color: #2b4053;
+            padding-left: 0.8rem;
+            border-left: 2px solid #b6cbd9;
+        }
+
+        /* 链接强调色 */
+        a {
+            color: #1b6f8f;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.12s, color 0.12s;
+        }
+        a:hover {
+            color: #09445b;
+            border-bottom-color: #09445b;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #4a6178;
+            padding: 2.2rem 0 3rem;
+            border-top: 1px solid #d5e0ea;
+            margin-top: 1rem;
+        }
+
+        /* 响应式 */
+        @media (max-width: 720px) {
+            .page { padding: 0 1rem; }
+            .hero { padding: 2.5rem 1rem; border-radius: 1.6rem; }
+            .hero h1 { font-size: 2rem; }
+            .grid-2col { grid-template-columns: 1fr; gap: 1.4rem; }
+            .card { padding: 1.4rem 1.2rem; }
+            .tip-area { flex-direction: column; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.7rem; }
+            .hero .tagline { font-size: 0.75rem; padding: 0.4rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <!-- 深色头图 -->
+    <header class="hero">
+        <h1>pg模拟器 · 知识查询库</h1>
+        <div class="subtle">日常对照 · 参数索引 · 延伸阅读入口</div>
+        <div class="tagline">面向查询与对照场景的轻知识框架</div>
+    </header>
+
+    <!-- 目录感网格：说明区 + 对照区 -->
+    <div class="grid-2col">
+        <section class="card">
+            <h2>说明区</h2>
+            <p><a href="https://zhc-pg-simulator.com">pg模拟器</a> 是一套面向过程与参数比对的工具集合，围绕常见查询场景组织内容。页面不侧重教学或演示，而是提供简洁的对照索引。</p>
+            <p>核心说明：</p>
+            <ul>
+                <li>提供模拟参数与基准值的快速比对</li>
+                <li>按场景分类的条目式参考结构</li>
+                <li>每个条目附带简短上下文与延伸链接</li>
+            </ul>
+            <p style="margin-top: 0.6rem;">适用于日常查阅、参数确认或概念快速回看。</p>
+        </section>
+        <section class="card">
+            <h2>对照区</h2>
+            <p>以下为常用对照条目（节选）：</p>
+            <ul>
+                <li><strong>基础参数对照</strong> – 默认值 / 模拟值 / 边界</li>
+                <li><strong>行为模式对比</strong> – 不同配置下的响应差异</li>
+                <li><strong>版本与变体</strong> – 各分支之间的主要区别</li>
+                <li><strong>输出格式</strong> – 结构化结果与原始数据</li>
+            </ul>
+            <p>更多对照表可在 <a href="https://zhc-pg-simulator.com">pg模拟器</a> 中按需展开。</p>
+        </section>
+    </div>
+
+    <!-- 提示区 -->
+    <div class="tip-area">
+        <span class="tip-label">📌 提示</span>
+        <span class="tip-content">若需查阅特定参数或模拟场景，建议直接搜索站内关键词，或使用页顶导航跳转。部分对照条目附带脚注与数据来源。</span>
+    </div>
+
+    <!-- 相关信息区：FAQ 摘要 -->
+    <section class="faq-summary">
+        <h2>相关信息 · 常见概念</h2>
+        <div class="faq-item">
+            <div class="faq-q">模拟器与真实环境的主要差异？</div>
+            <div class="faq-a">pg模拟器 侧重于参数层面的近似与对照，不模拟真实运行时延迟或并发压力。结果可作参考，关键决策仍需结合实测。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">如何理解对照表中的“参考区间”？</div>
+            <div class="faq-a">参考区间基于常见配置范围及文档中记录的经验值，具体数值可能因版本或上下文偏移。使用时建议交叉核对。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">是否提供延伸阅读链接？</div>
+            <div class="faq-a">部分条目末尾附有外部资料或规范文档链接，便于深入查询。站内也聚合了相关主题的简要索引。</div>
+        </div>
+    </section>
+
+    <!-- 附加说明区：简洁专业 -->
+    <div style="background: #ffffff; border-radius: 1.2rem; padding: 1.6rem 1.8rem; margin: 0.8rem 0 2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
+        <p style="margin-bottom: 0.5rem;">此页面为 <a href="https://zhc-pg-simulator.com">pg模拟器</a> 的知识库式入口，主要面向日常查询、对照与延伸阅读。页面结构围绕信息密度与快速定位设计，内容保持克制与可溯源性。</p>
+        <p style="color: #3e5c74; font-size: 0.95rem;">使用建议：将对照条目视为起点，通过内部链接跳转至详细页或数据说明区。未覆盖的特定场景可参考站内附录。</p>
+    </div>
+
+    <!-- footer -->
+    <div class="footer-note">
+        pg模拟器 · 知识索引 · 信息聚合入口
+    </div>
+</div>
+</body>
+</html>
